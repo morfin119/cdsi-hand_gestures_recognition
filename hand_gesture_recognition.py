@@ -128,58 +128,58 @@ while True:
         for handLms in results.multi_hand_landmarks:
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
 
-    hand_landmarks = common.get_right_hand_landmarks(results, h, w)
+    # hand_landmarks = common.get_right_hand_landmarks(results, h, w)
     
-    if hand_landmarks is False:
-        detection_mode = True
-    if hand_landmarks is not False:
-        # Draw Bounding Box
-        df = pd.DataFrame(hand_landmarks)
-        xmin = df[0].min()
-        xmax = df[0].max()
-        ymin = df[1].min()
-        ymax = df[1].max()
-        cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (255, 255, 0), 3)
+    # if hand_landmarks is False:
+    #     detection_mode = True
+    # if hand_landmarks is not False:
+    #     # Draw Bounding Box
+    #     df = pd.DataFrame(hand_landmarks)
+    #     xmin = df[0].min()
+    #     xmax = df[0].max()
+    #     ymin = df[1].min()
+    #     ymax = df[1].max()
+    #     cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (255, 255, 0), 3)
 
-        # Normalize landmarks
-        normalized_landmarks = common.normalize_hand_landmarks(hand_landmarks)
-        df = pd.DataFrame(normalized_landmarks)
-        df.columns = ['x', 'y', 'z']
-        df.drop('z', axis=1, inplace=True)
-        features = df.to_numpy().flatten()
+    #     # Normalize landmarks
+    #     normalized_landmarks = common.normalize_hand_landmarks(hand_landmarks)
+    #     df = pd.DataFrame(normalized_landmarks)
+    #     df.columns = ['x', 'y', 'z']
+    #     df.drop('z', axis=1, inplace=True)
+    #     features = df.to_numpy().flatten()
 
-        # Print landmarks normlized values
-        for index, landmark in enumerate(hand_landmarks):
-            cv2.putText(img, f"x: {df.iloc[index]['x']:.2}, y:{df.iloc[index]['y']:.2}", 
-                (landmark[0], landmark[1] + 12), cv2.FONT_HERSHEY_PLAIN, 1, (255,0,0), 1)
+    #     # Print landmarks normlized values
+    #     for index, landmark in enumerate(hand_landmarks):
+    #         cv2.putText(img, f"x: {df.iloc[index]['x']:.2}, y:{df.iloc[index]['y']:.2}", 
+    #             (landmark[0], landmark[1] + 12), cv2.FONT_HERSHEY_PLAIN, 1, (255,0,0), 1)
 
-        # Make predictions
-        last_character = current_character
-        current_character = svclassifier.predict([features])
-        img_pil = Image.fromarray(img)
-        draw = ImageDraw.Draw(img_pil)
-        draw.text((10, 50),f'Prediction: {current_character[0]}',(255,0,255),font=font)
-        img = np.asarray(img_pil)
+    #     # Make predictions
+    #     last_character = current_character
+    #     current_character = svclassifier.predict([features])
+    #     img_pil = Image.fromarray(img)
+    #     draw = ImageDraw.Draw(img_pil)
+    #     draw.text((10, 50),f'Prediction: {current_character[0]}',(255,0,255),font=font)
+    #     img = np.asarray(img_pil)
 
-        if (last_character != current_character):
-            prev_detection_time = time.time()
-            detection_mode = True
+    #     if (last_character != current_character):
+    #         prev_detection_time = time.time()
+    #         detection_mode = True
 
-        # If current_character = last_character and time_diff > constant play sound
-        if (last_character == current_character) \
-                and (time.time() - prev_detection_time) > DETECTION_TIME \
-                and detection_mode == True \
-                and th.is_alive() == False:
-            key = current_character[0]
-            if key == 'null':
-                continue
-            th = threading.Thread(target=say, args=(key, ))
-            th.start()
-            keyboard.press(key)
-            keyboard.release(key)
-            keyboard.press(Key.enter)
-            keyboard.release(Key.enter)
-            detection_mode = False
+    #     # If current_character = last_character and time_diff > constant play sound
+    #     if (last_character == current_character) \
+    #             and (time.time() - prev_detection_time) > DETECTION_TIME \
+    #             and detection_mode == True \
+    #             and th.is_alive() == False:
+    #         key = current_character[0]
+    #         if key == 'null':
+    #             continue
+    #         th = threading.Thread(target=say, args=(key, ))
+    #         th.start()
+    #         keyboard.press(key)
+    #         keyboard.release(key)
+    #         keyboard.press(Key.enter)
+    #         keyboard.release(Key.enter)
+    #         detection_mode = False
 
     cv2.imshow("Image", img)
 

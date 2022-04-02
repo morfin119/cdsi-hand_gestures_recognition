@@ -46,5 +46,7 @@ X = np.asarray(X)
 svclassifier = SVC(kernel='poly', degree=3)
 svclassifier.fit(X, y)
 
+os.makedirs('models', exist_ok=False)
+
 path = os.path.join('models', 'hand_gesture_model.joblib')
 dump(svclassifier, path)

@@ -1,0 +1,10 @@
+conda install -c anaconda scikit-learn
+conda install -c anaconda joblib
+conda install -c anaconda ipykernel 
+conda install -c conda-forge notebook
+pip install pygame
+pip install gTTS
+conda install -c conda-forge pandas 
+pip install mediapipe
+pip install opencv-python
+conda install -c conda-forge pynput Y

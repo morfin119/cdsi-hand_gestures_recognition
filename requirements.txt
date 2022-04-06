@@ -7,4 +7,4 @@ pip install gTTS
 conda install -c conda-forge pandas 
 pip install mediapipe
 pip install opencv-python
-conda install -c conda-forge pynput Y
+conda install -c conda-forge pynput

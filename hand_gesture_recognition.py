@@ -24,7 +24,7 @@ import common
 def say(text):
     clock = pygame.time.Clock()
 
-    tts = gTTS(text, lang='es')
+    tts = gTTS(text, lang='es', tld='com')
     tts.save("sound.mp3")
 
     pygame.mixer.init()

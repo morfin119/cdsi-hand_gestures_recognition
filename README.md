@@ -4,6 +4,8 @@
 Se sugiere ejecutar el código en una máquina Linux con anaconda instalado, para instalar las librerías es necesario ejecutar los siguientes comandos en el orden en que se muestran:
 
 ```
+conda create -n hand-gesture
+conda activate hand-gesture
 conda install -c anaconda scikit-learn
 conda install -c anaconda joblib
 conda install -c anaconda ipykernel 
@@ -23,5 +25,5 @@ python create_models.py
 
 Una vez creados los modelos es posible crear el escript ejecutando el siguiente comando:
 ```
-hand_gesture_recognition.py
+python hand_gesture_recognition.py
 ```

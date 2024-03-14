@@ -1,29 +1,33 @@
-# Dactilología en lengua de señas mexicana usando visión por computadora  y máquinas de soporte vectorial
+# Mexican Sing Language Static Recognition using Support Vector Machines
 
-## Instalación
-Se sugiere ejecutar el código en una máquina Linux con anaconda instalado, para instalar las librerías es necesario ejecutar los siguientes comandos en el orden en que se muestran:
+This project implements recognition of static signs from the Mexican Sign Language (LSM) alphabet using Support Vector Machines (SVM) and computer vision techniques. It detects hand landmarks using the cvzone library and classifies them into the predefined signs of the LSM alphabet using an SVM classifier.
+
+## Description
+
+The code in this repository performs the following tasks:
+- Reads images from a dataset directory
+- Detects hand landmarks using cvzone
+- Normalizes hand landmarks
+- Trains an SVM classifier to recognize hand gestures
+- Saves the trained model for later use
+
+## Installation
+
+To run this code, ensure you have Python installed on your system. Clone this repository and navigate to the project directory. Then, install the required dependencies using pip:
 
 ```
-conda create -n hand-gesture
-conda activate hand-gesture
-conda install -c anaconda scikit-learn
-conda install -c anaconda joblib
-conda install -c anaconda ipykernel 
-conda install -c conda-forge notebook
-pip install pygame
-pip install gTTS
-conda install -c conda-forge pandas 
-pip install mediapipe
-pip install opencv-python
-conda install -c conda-forge pynput
-```
-
-Posteriormente es necesario generar los modelos de clasificación ejecutando el siguiente comando:
-```
-python create_models.py
+pip install -r requirements.txt
 ```
 
-Una vez creados los modelos es posible crear el escript ejecutando el siguiente comando:
-```
-python hand_gesture_recognition.py
-```
+## Usage
+
+1. First, create the models by executing the `create_models.py` script. This script uses a small dataset included in the repository to train the SVM classifier.
+
+2. After creating the models, you can execute the main recognizer `hand_gesture_recognition.py` to perform real-time hand gesture recognition.
+
+
+Ensure that you have a webcam connected to your system to capture real-time video for gesture recognition.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
